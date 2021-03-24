@@ -1,4 +1,4 @@
-package sample.view;
+package sample;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

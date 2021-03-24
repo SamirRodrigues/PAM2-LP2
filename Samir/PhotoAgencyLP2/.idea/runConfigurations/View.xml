@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="View" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="sample.View" />
+    <module name="PhotoAgencyLP2" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="sample.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
