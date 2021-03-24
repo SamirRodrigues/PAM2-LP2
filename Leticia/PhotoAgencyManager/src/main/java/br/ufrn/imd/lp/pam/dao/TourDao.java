@@ -1,6 +1,7 @@
 package br.ufrn.imd.lp.pam.dao;
 
 import br.ufrn.imd.lp.pam.domain.Order;
+import br.ufrn.imd.lp.pam.domain.Photographer;
 import br.ufrn.imd.lp.pam.domain.Tour;
 
 public class TourDao {
@@ -12,14 +13,18 @@ public class TourDao {
 		this.database = Database.getInstance();
 	}
 	
-	public Tour findByName(String name) {
+	public Tour findTour(String tourName, String photographerName) {
 		
-		for(Tour t : database.getAgency().getTours()) {
-			if(t.getName().equals(name)) {
-				return t;
+		for(Photographer p : this.database.getAgency().getPhotographers()) {
+			if(p.getName().equals(photographerName)) {
+				for(Tour t : p.getTours()) {
+					if(t.getName().equals(tourName)) {
+						return t;
+					}
+				}
 			}
 		}
-		
+		//lançar exceção dado não encontrado
 		return null;
 	}
 	

@@ -7,13 +7,11 @@ public class Agency extends Contact {
 	private FinancialHistory financialHistory;
 	private Balance lastBalance;
 	private ArrayList<Photographer> photographers;
-	private ArrayList<Tour> tours;
 
 	public Agency(String name, String phone) {
 		super(name, phone);
 		this.financialHistory = new FinancialHistory();
 		this.photographers = new ArrayList<Photographer>();
-		this.tours = new ArrayList<Tour>();
 	}
 	
 	public Agency() {}
@@ -40,20 +38,12 @@ public class Agency extends Contact {
 		this.lastBalance = lastBalance;
 	}
 
-	public ArrayList<Photographer> getPhotographer() {
+	public ArrayList<Photographer> getPhotographers() {
 		return photographers;
 	}
 
-	public void setPhotographer(ArrayList<Photographer> photographers) {
+	public void setPhotographers(ArrayList<Photographer> photographers) {
 		this.photographers = photographers;
-	}
-
-	public ArrayList<Tour> getTours() {
-		return tours;
-	}
-
-	public void setTours(ArrayList<Tour> tours) {
-		this.tours = tours;
 	}
 
 }

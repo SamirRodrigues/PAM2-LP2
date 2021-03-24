@@ -13,10 +13,10 @@ public class OrderDao {
 		this.database = Database.getInstance();
 	}
 
-	public void addOrder(String name, Order order) {
+	public void addOrder(Order order) {
 
 		TourDao td = new TourDao();
-		Tour tour = td.findByName(name);
+		Tour tour = td.findTour(order.getTour().getName(), order.getPhotographer().getName());
 		if (tour != null) {
 			tour.getOrders().add(order);
 		}
@@ -28,7 +28,7 @@ public class OrderDao {
 	public void removeOrder(String name, Order order) {
 
 		TourDao td = new TourDao();
-		Tour tour = td.findByName(name);
+		Tour tour = td.findTour(order.getTour().getName(), order.getPhotographer().getName());
 		if (tour != null) {
 			tour.getOrders().remove(order);
 		}
@@ -37,10 +37,10 @@ public class OrderDao {
 		}
 	}
 	
-	public ArrayList<Order> listOrdersByTour(String name) {
+	public ArrayList<Order> listOrdersByTour(String tourName, String photographerName) {
 
 		TourDao td = new TourDao();
-		Tour tour = td.findByName(name);
+		Tour tour = td.findTour(tourName, photographerName);
 		if (tour != null) {
 			return tour.getOrders();
 		}

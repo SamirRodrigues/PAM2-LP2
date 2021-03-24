@@ -10,6 +10,7 @@ public class Order {
 	private OrderStatus orderStatus;
 	private Date requestDate;
 	private Date deliveryDate;
+	private Tour tour;
 
 	public Person getClient() {
 		return client;
@@ -57,6 +58,14 @@ public class Order {
 
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
 	}
 
 }

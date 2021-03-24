@@ -12,20 +12,20 @@ public class PersonDao {
 		this.database = Database.getInstance();
 	}
 	
-	public void addPerson(Person person) {
-		this.database.getPeople().add(person);
+	public void add(Person person) {
+		this.database.getContacts().add(person);
 	}
 	
-	public void removePerson(Person person) {
-		this.database.getPeople().remove(person);
+	public void remove(Person person) {
+		this.database.getContacts().remove(person);
 	}
 	
-	public ArrayList<Person> listPeople(){
-		return this.database.getPeople();
+	public ArrayList<Person> list(){
+		return this.database.getContacts();
 	}
 	
-	public void updatePerson(Person person) {
-		for(Person p: this.database.getPeople()) {
+	public void update(Person person) {
+		for(Person p: this.database.getContacts()) {
 			if(p.getName().equals(person.getName())) {
 				p = person;
 				return;

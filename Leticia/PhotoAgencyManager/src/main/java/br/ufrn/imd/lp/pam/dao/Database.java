@@ -1,15 +1,16 @@
 package br.ufrn.imd.lp.pam.dao;
 
 import java.util.ArrayList;
+
 import br.ufrn.imd.lp.pam.domain.Agency;
-import br.ufrn.imd.lp.pam.domain.Person;
+import br.ufrn.imd.lp.pam.domain.Contact;
 
 public class Database {
 
 	private static Database database;
 	
 	private Agency agency;
-	private ArrayList<Person> people;
+	private ArrayList<Contact> contacts;
 
 	private Database() {
 		this.agency = new Agency();
@@ -31,12 +32,12 @@ public class Database {
 		this.agency = agency;
 	}
 
-	public ArrayList<Person> getPeople() {
-		return people;
+	public ArrayList<Contact> getContacts() {
+		return contacts;
 	}
 
-	public void setPeople(ArrayList<Person> people) {
-		this.people = people;
+	public void setContacts(ArrayList<Contact> contacts) {
+		this.contacts = contacts;
 	}
 	
 }

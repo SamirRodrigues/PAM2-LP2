@@ -8,9 +8,9 @@ public class Tour {
 	private String name;
 	private Date date;
 	private Company company;
+	private Photographer photographer;
 	private ArrayList<Order> orders;
 	private ArrayList<Person> clients;
-	private ArrayList<Photographer> photographer;
 	private TourType tourType;
 
 	public String getName() {
@@ -37,6 +37,14 @@ public class Tour {
 		this.company = company;
 	}
 
+	public Photographer getPhotographer() {
+		return photographer;
+	}
+
+	public void setPhotographer(Photographer photographer) {
+		this.photographer = photographer;
+	}
+
 	public ArrayList<Order> getOrders() {
 		return orders;
 	}
@@ -51,14 +59,6 @@ public class Tour {
 
 	public void setClients(ArrayList<Person> clients) {
 		this.clients = clients;
-	}
-
-	public ArrayList<Photographer> getPhotographer() {
-		return photographer;
-	}
-
-	public void setPhotographer(ArrayList<Photographer> photographer) {
-		this.photographer = photographer;
 	}
 
 	public TourType getTourType() {
