@@ -1,5 +1,7 @@
 package br.ufrn.imd.lp.pam.dao;
 
+import java.util.ArrayList;
+
 import br.ufrn.imd.lp.pam.domain.Order;
 import br.ufrn.imd.lp.pam.domain.Photographer;
 import br.ufrn.imd.lp.pam.domain.Tour;
@@ -56,10 +58,16 @@ public class TourDao {
 			}
 		}
 	}
-	
-	public void listTourByPhotographer(String namePhotographer) {
-		
-		
+
+	public ArrayList<Tour> listTourByPhotographer(String photographerName) {
+
+		for (Photographer p : this.database.getAgency().getPhotographers()) {
+			if (p.getName().equals(photographerName)) {
+				return p.getTours();
+			}
+		}
+
+		return null;
 	}
 
 	public double salesAmount() {

@@ -1,9 +1,11 @@
 package br.ufrn.imd.lp.pam.domain;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Order {
 
+	private String orderId;
 	private Person client;
 	private Photographer photographer;
 	private PhotoPack photoPack;
@@ -11,6 +13,30 @@ public class Order {
 	private Date requestDate;
 	private Date deliveryDate;
 	private Tour tour;
+
+	public Order(Person client, Photographer photographer, Tour tour) {
+		this.client = client;
+		this.photographer = photographer;
+		this.tour = tour;
+		this.orderStatus = OrderStatus.CUSTOMER_CHOOSING_PHOTOS;
+		this.requestDate = new Date();
+		this.orderId = createId();
+	}
+
+	private String createId() {
+
+		String uuid = UUID.randomUUID().toString().substring(25);
+
+		return uuid;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
 	public Person getClient() {
 		return client;
