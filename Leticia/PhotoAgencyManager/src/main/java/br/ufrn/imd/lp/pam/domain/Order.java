@@ -14,7 +14,7 @@ public class Order {
 	private Date deliveryDate;
 	private Tour tour;
 
-	public Order(Person client, Photographer photographer, Tour tour) {
+	public Order(Person client, Photographer photographer, Tour tour, PhotoPack photoPack) {
 		this.client = client;
 		this.photographer = photographer;
 		this.tour = tour;

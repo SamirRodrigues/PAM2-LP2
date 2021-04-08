@@ -7,14 +7,17 @@ public class Agency extends Contact {
 	private FinancialHistory financialHistory;
 	private Balance lastBalance;
 	private ArrayList<Photographer> photographers;
+	private ArrayList<PhotoPack> photoPacks;
 
 	public Agency(String name, String phone) {
 		super(name, phone);
 		this.financialHistory = new FinancialHistory();
 		this.photographers = new ArrayList<Photographer>();
+		this.photoPacks = new ArrayList<PhotoPack>();
 	}
-	
-	public Agency() {}
+
+	public Agency() {
+	}
 
 	public void addBalance(Balance balance) {
 
@@ -44,6 +47,14 @@ public class Agency extends Contact {
 
 	public void setPhotographers(ArrayList<Photographer> photographers) {
 		this.photographers = photographers;
+	}
+
+	public ArrayList<PhotoPack> getPhotoPacks() {
+		return photoPacks;
+	}
+
+	public void setPhotoPacks(ArrayList<PhotoPack> photoPacks) {
+		this.photoPacks = photoPacks;
 	}
 
 }
