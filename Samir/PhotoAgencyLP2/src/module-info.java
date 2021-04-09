@@ -5,5 +5,6 @@ module PhotoAgencyLP2 {
     requires javafx.controls;
     requires javafx.graphics;
 
-    opens sample;
+    opens br.ufrn.imd.lp.pam.controller;
+    opens br.ufrn.imd.lp.pam.view;
 }

@@ -1,10 +1,12 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="View" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="sample.View" />
+    <option name="ALTERNATIVE_JRE_PATH" value="15" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="br.ufrn.imd.lp.pam.view.View" />
     <module name="PhotoAgencyLP2" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="sample.*" />
+        <option name="PATTERN" value="br.ufrn.imd.lp.pam.controller.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
