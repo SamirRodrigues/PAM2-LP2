@@ -17,6 +17,9 @@ public class Agency extends Contact {
 	}
 
 	public Agency() {
+		this.financialHistory = new FinancialHistory();
+		this.photographers = new ArrayList<Photographer>();
+		this.photoPacks = new ArrayList<PhotoPack>();
 	}
 
 	public void addBalance(Balance balance) {

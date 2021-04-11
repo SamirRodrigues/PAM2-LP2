@@ -28,9 +28,7 @@ public class Database {
 		return agency;
 	}
 	
-	public void setAgency(Agency agency) {
-		this.agency = agency;
-	}
+	public void setAgency(Agency agency) {	this.agency = agency;	}
 
 	public ArrayList<Contact> getContacts() {
 		return contacts;

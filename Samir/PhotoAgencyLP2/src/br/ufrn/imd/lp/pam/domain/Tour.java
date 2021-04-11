@@ -9,8 +9,8 @@ public class Tour {
 	private Date date;
 	private Company company;
 	private Photographer photographer;
-	private ArrayList<Order> orders;
-	private ArrayList<Person> clients;
+	private ArrayList<Order> orders = new ArrayList<Order>();
+	private ArrayList<Person> clients = new ArrayList<Person>();
 	private TourType tourType;
 
 	public String getName() {
