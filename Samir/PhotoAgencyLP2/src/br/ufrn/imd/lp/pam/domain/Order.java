@@ -9,6 +9,7 @@ public class Order {
 	private Person client;
 	private String clientName;
 	private Photographer photographer;
+	private String photographerName;
 	private PhotoPack photoPack;
 	private OrderStatus orderStatus;
 	private Date requestDate;
@@ -19,6 +20,7 @@ public class Order {
 		this.client = client;
 		this.clientName = client.getName();
 		this.photographer = photographer;
+		this.photographerName = photographer.getName();
 		this.tour = tour;
 		this.photoPack = photoPack;
 		this.orderStatus = OrderStatus.CUSTOMER_CHOOSING_PHOTOS;
@@ -37,9 +39,7 @@ public class Order {
 		return orderId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
+	public void setOrderId(String orderId) { this.orderId = orderId; }
 
 	public Person getClient() {
 		return client;
@@ -50,8 +50,6 @@ public class Order {
 	}
 
 	public String getClientName() { return clientName; }
-
-	public void setClientName(String clientName) { this.clientName = clientName; }
 
 	public Photographer getPhotographer() {	return photographer; }
 
@@ -76,6 +74,8 @@ public class Order {
 	public Tour getTour() {	return tour; }
 
 	public void setTour(Tour tour) { this.tour = tour; }
+
+	public String getPhotographerName() { return photographer.getName(); }
 
 
 }
