@@ -8,6 +8,8 @@ public class Person extends Contact {
 		super(name, phone);
 	}
 
+	public Person(String name, String phone, String email) { super(name, phone, email); }
+
 	public String getCpf() {
 		return cpf;
 	}

@@ -7,20 +7,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.lp.pam.controller.ClientRegisterController">
    <children>
       <Pane prefHeight="350.0" prefWidth="113.0" style="-fx-background-color: #48A5EA;" />
-      <TextField layoutX="155.0" layoutY="120.0" prefHeight="25.0" prefWidth="237.0" promptText="Nome Completo" fx:id="clientRegisterName"/>
-      <TextField layoutX="444.0" layoutY="120.0" promptText="Telefone" fx:id="clientRegisterTelephone1"/>
-      <TextField layoutX="155.0" layoutY="163.0" prefHeight="25.0" prefWidth="237.0" promptText="clienteemail@email.com.br" fx:id="clientRegisterEmail" />
-      <TextField layoutX="444.0" layoutY="163.0" promptText="Telefone" fx:id="clientRegisterTelephone2"/>
-      <TextField layoutX="155.0" layoutY="207.0" prefHeight="25.0" prefWidth="237.0" promptText="CPF" fx:id="clientRegisterCPF" />
+      <TextField fx:id="clientRegisterName" layoutX="155.0" layoutY="120.0" prefHeight="25.0" prefWidth="237.0" promptText="Nome Completo" />
+      <TextField fx:id="clientRegisterTelephone1" layoutX="444.0" layoutY="120.0" promptText="Telefone" />
+      <TextField fx:id="clientRegisterEmail" layoutX="155.0" layoutY="163.0" prefHeight="25.0" prefWidth="237.0" promptText="clienteemail@email.com.br" />
+      <TextField fx:id="clientRegisterTelephone2" layoutX="444.0" layoutY="163.0" promptText="Telefone" />
+      <TextField fx:id="clientRegisterCPF" layoutX="155.0" layoutY="207.0" prefHeight="25.0" prefWidth="237.0" promptText="CPF" />
       <Label alignment="CENTER" layoutX="207.0" layoutY="42.0" prefHeight="35.0" prefWidth="311.0" text="Cadastro de Novo Cliente" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI Symbol" size="19.0" />
          </font>
       </Label>
-      <Button layoutX="155.0" layoutY="303.0" mnemonicParsing="false" text="Cancelar" />
-      <Button layoutX="504.0" layoutY="303.0" mnemonicParsing="false" text="Finalizar Cadastro" />
+      <Button layoutX="155.0" layoutY="303.0" mnemonicParsing="false" onAction="#CloseWindow" text="Cancelar" />
+      <Button layoutX="504.0" layoutY="303.0" mnemonicParsing="false" onAction="#AddClientLogin" text="Finalizar Cadastro" />
    </children>
 </AnchorPane>

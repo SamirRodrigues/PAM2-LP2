@@ -1,4 +1,4 @@
-package br.ufrn.imd.lp.pam.view;
+package br.ufrn.imd.lp.pam.controller;
 
 import br.ufrn.imd.lp.pam.dao.Database;
 import br.ufrn.imd.lp.pam.utils.InitData;

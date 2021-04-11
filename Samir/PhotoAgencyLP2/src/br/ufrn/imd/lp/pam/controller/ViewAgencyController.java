@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +28,7 @@ public class ViewAgencyController implements Initializable {
 
     @FXML    private ListView<String> listPhotoView = new ListView<>();
     @FXML    private ListView<String> listTuorView = new ListView<>();
-    @FXML    private ListView<String> listOrderView = new ListView<>();
+    @FXML    private ListView<Order> listOrderView = new ListView<>();
 
     @FXML    private TableView<Order> tableOrderView = new TableView<>();
 
@@ -37,17 +38,14 @@ public class ViewAgencyController implements Initializable {
     Tour selectedTour;
     Order selectedOrder;
 
-    //Order TableView
-    private TableColumn<Order, String> clientName = new TableColumn<>("VEJA");
-
-
-
 
     // DETAIL ORDER
     @FXML    private Label nameDetailOrder = new Label();
     @FXML    private Label packDetailOrder = new Label();
     @FXML    private Label statusDetailOrder = new Label();
     @FXML    private Label tourDetailOrder = new Label();
+
+
 
 
     // ## Start Register Menu Options ##
@@ -66,11 +64,21 @@ public class ViewAgencyController implements Initializable {
     public void OpenRegisterNewPhotographer() throws IOException {
         Parent tripViewParent = FXMLLoader.load(getClass().getResource("photographerRegister.fxml")); // Carregando o arquivo fxml
 
-        // Pegando informações da stage
         Stage window = new Stage();
         window.setResizable(false);
         window.setScene(new Scene(tripViewParent));
         window.show();
+    }
+    //Esse metodo retorna a janela de Login
+    public void OpenLoginScreen(ActionEvent event) throws IOException {
+        Parent tripViewParent = FXMLLoader.load(getClass().getResource("login.fxml")); // Carregando o arquivo fxml
+
+        Stage window = new Stage();
+        window.setResizable(false);
+        window.setScene(new Scene(tripViewParent));
+        window.show();
+
+        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
 
     // ## End Register Menu Options ##
@@ -79,9 +87,13 @@ public class ViewAgencyController implements Initializable {
     private void  initPhotoList() {
         initData();
 
+        TableColumn<Order, String> clientName = new TableColumn<>("VEJA");
+        clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+
         PhotographerDao listPhotographerDao = new PhotographerDao();
         list = listPhotographerDao.listAgencyPhotographers();
         TourDao listTourDao = new TourDao();
+        OrderDao listOrderDao = new OrderDao();
 
         for (var p: list)
         {
@@ -119,26 +131,27 @@ public class ViewAgencyController implements Initializable {
 
                         for (var a: selectedTour.getOrders())
                         {
-                            listOrderView.getItems().add(a.getClientName());
+                            listOrderView.getItems().add(a);
                         }
                     }
                 });
 
         listOrderView.getSelectionModel().selectedItemProperty() //TODO: Criar uma tabela no lugar da lista e armazenar Nome e ID
-                .addListener(new ChangeListener<String>()
+                .addListener(new ChangeListener<Order>()
                 {
+                    ObservableList<Order> items = FXCollections.observableArrayList();
                     @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                    public void changed(ObservableValue<? extends Order> observable, Order oldValue, Order newValue)
                     {
+                        selectedOrder = listOrderDao.findOrder(selectedTour.getName(),selectedPhotographer.getName(),newValue.getOrderId());
+                        initData(selectedOrder);
+                        tableOrderView.setItems(items);
+                        tableOrderView.refresh();
 
                     }
                 });
+        tableOrderView.getColumns().add(clientName);
     }
-
-         clientName.setCellValueFactory(new PropertyValueFactory<Order, String>("clientName"));
-         listOrderView.setItems(items);
-         listOrderView.getColumns().add(clientName);
-
 
     //Esse metodo recebe um pedido para inicializar a janela de detalhamento com os dados desse pedido
     public void initData(Order order) {
