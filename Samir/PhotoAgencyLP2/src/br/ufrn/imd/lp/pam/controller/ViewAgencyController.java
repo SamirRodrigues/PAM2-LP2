@@ -118,21 +118,16 @@ public class ViewAgencyController implements Initializable {
                 });
 
         listTuorView.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<String>()
-                {
-                    @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                .addListener((observable, oldValue, newValue) -> {
+                    selectedTour = listTourDao.findTour(newValue, selectedPhotographer.getName());
+
+                    listOrderView.getItems().removeAll(listOrderView.getItems());
+
+                    ObservableList<Order> orderItems = FXCollections.observableArrayList();
+
+                    for (var a: selectedTour.getOrders())
                     {
-                        selectedTour = listTourDao.findTour(newValue, selectedPhotographer.getName());
-
-                        listOrderView.getItems().removeAll(listOrderView.getItems());
-
-                        ObservableList<Order> orderItems = FXCollections.observableArrayList();
-
-                        for (var a: selectedTour.getOrders())
-                        {
-                            listOrderView.getItems().add(a);
-                        }
+                        listOrderView.getItems().add(a);
                     }
                 });
 
@@ -175,6 +170,6 @@ public class ViewAgencyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initPhotoList(); // TODO: Configurar a lista de inicial de empresas, que servirar de base para as filtragens
+        initPhotoList(); // Configura a lista de inicial de empresas, que servirar de base para as filtragens
     }
 }

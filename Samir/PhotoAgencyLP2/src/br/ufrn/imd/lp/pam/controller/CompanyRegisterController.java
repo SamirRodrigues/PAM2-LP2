@@ -1,5 +1,6 @@
 package br.ufrn.imd.lp.pam.controller;
 
+import br.ufrn.imd.lp.pam.domain.Company;
 import br.ufrn.imd.lp.pam.domain.Person;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -13,17 +14,20 @@ public class CompanyRegisterController {
 
 
     public TextField companyRegisterName;
-    public TextField companyRegisterTelephone1;
-    public TextField companyRegisterTelephone2;
+    public TextField ownerCompanyRegisterName;
+    public TextField companyRegisterTelephone;
+    public TextField ownerCompanyRegisterTelephone;
     public TextField companyRegisterEmail;
     public TextField companyRegisterCNPJ;
 
-    public void AddClientLogin(ActionEvent event) throws Exception
+    public void AddCompany(ActionEvent event) throws Exception
     {
-        if(companyRegisterName.getText().trim().equals("")          ||  companyRegisterName.getText() == null       ||
-            clientRegisterTelephone1.getText().trim().equals("")    ||  clientRegisterTelephone1.getText() == null  ||
-            clientRegisterEmail.getText().trim().equals("")         ||  clientRegisterEmail.getText() == null       ||
-            clientRegisterCPF.getText().trim().equals("")           ||  clientRegisterCPF.getText() == null)
+        if(companyRegisterName.getText().trim().equals("")              ||  companyRegisterName.getText()               == null     ||
+            ownerCompanyRegisterName.getText().trim().equals("")        ||  ownerCompanyRegisterName.getText()          == null     ||
+            companyRegisterTelephone.getText().trim().equals("")        ||  companyRegisterTelephone.getText()          == null     ||
+            ownerCompanyRegisterTelephone.getText().trim().equals("")   ||  ownerCompanyRegisterTelephone.getText()     == null     ||
+            companyRegisterEmail.getText().trim().equals("")            ||  companyRegisterEmail.getText()              == null     ||
+            companyRegisterCNPJ.getText().trim().equals("")             ||  companyRegisterCNPJ.getText()               == null)
         {
 
             Alert alert = new Alert(Alert.AlertType.NONE);
@@ -34,8 +38,10 @@ public class CompanyRegisterController {
         }
         else
         {
-            Person newCLient = new Person(clientRegisterName.getText(),clientRegisterTelephone1.getText(),clientRegisterEmail.getText());
-            newCLient.setCpf(clientRegisterCPF.getText());
+            Person owner = new Person(ownerCompanyRegisterName.getText(), ownerCompanyRegisterTelephone.getText());
+
+            Company company = new Company(companyRegisterName.getText(),companyRegisterTelephone.getText(),companyRegisterEmail.getText(), owner);
+            company.setCnpj(companyRegisterCNPJ.getText());
 
             Alert alert = new Alert(Alert.AlertType.NONE);
 
