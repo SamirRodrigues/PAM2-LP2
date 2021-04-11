@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import br.ufrn.imd.lp.pam.domain.Order;
 import br.ufrn.imd.lp.pam.domain.Tour;
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 
 public class OrderDao {
 
@@ -13,74 +14,55 @@ public class OrderDao {
 		this.database = Database.getInstance();
 	}
 
-	public Order findOrder(String tourName, String photographerName, String orderId) {
+	public Order findOrder(String tourName, String photographerName, String orderId) throws DataNotFoundException {
 
 		TourDao td = new TourDao();
 		Tour tour = td.findTour(tourName, photographerName);
 
-		if (tour != null) {
-			for (Order order : tour.getOrders()) {
-				if (order.getOrderId().equals(orderId)) {
-					return order;
-				}
+		for (Order order : tour.getOrders()) {
+			if (order.getOrderId().equals(orderId)) {
+				return order;
 			}
-		} else {
-			// lançar exceção dado não encontrado
 		}
 
-		return null;
+		throw new DataNotFoundException("Order not found");
 	}
 
-	public void addOrder(Order order) {
+	public void addOrder(Order order) throws DataNotFoundException {
 
 		TourDao td = new TourDao();
 		Tour tour = td.findTour(order.getTour().getName(), order.getPhotographer().getName());
-		if (tour != null) {
-			tour.getOrders().add(order);
-		} else {
-			// lançar exceção dado não encontrado
-		}
+		tour.getOrders().add(order);
+
 	}
 
-	public void removeOrder(Order order) {
+	public void removeOrder(Order order) throws DataNotFoundException {
 
 		TourDao td = new TourDao();
 		Tour tour = td.findTour(order.getTour().getName(), order.getPhotographer().getName());
-		if (tour != null) {
-			tour.getOrders().remove(order);
-		} else {
-			// lançar exceção dado não encontrado
-		}
+		tour.getOrders().remove(order);
+
 	}
 
-	public ArrayList<Order> listOrdersByTour(String tourName, String photographerName) {
+	public ArrayList<Order> listOrdersByTour(String tourName, String photographerName) throws DataNotFoundException {
 
 		TourDao td = new TourDao();
 		Tour tour = td.findTour(tourName, photographerName);
-		if (tour != null) {
-			return tour.getOrders();
-		} else {
-			// lançar exceção dado não encontrado
-			return null;
-		}
+		return tour.getOrders();
 	}
 
-	public void updateOrder(Order ord) {
+	public void updateOrder(Order ord) throws DataNotFoundException {
 
 		TourDao td = new TourDao();
 		Tour tour = td.findTour(ord.getTour().getName(), ord.getPhotographer().getName());
 
-		if (tour == null) {
-			// lançar exceção dado não encontrado
-		} else {
-			for (Order order : tour.getOrders()) {
-				if (order.getOrderId().equals(ord.getOrderId())) {
-					order = ord;
-					return;
-				}
+		for (Order order : tour.getOrders()) {
+			if (order.getOrderId().equals(ord.getOrderId())) {
+				order = ord;
+				return;
 			}
 		}
-		// lançar exceção dado não encontrado
+		throw new DataNotFoundException("Order not found for update");
 	}
 
 }

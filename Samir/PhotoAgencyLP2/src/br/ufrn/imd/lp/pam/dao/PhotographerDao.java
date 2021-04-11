@@ -3,6 +3,7 @@ package br.ufrn.imd.lp.pam.dao;
 import java.util.ArrayList;
 import br.ufrn.imd.lp.pam.domain.Contact;
 import br.ufrn.imd.lp.pam.domain.Photographer;
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 
 public class PhotographerDao {
 
@@ -41,7 +42,7 @@ public class PhotographerDao {
 		return photographers;
 	}
 	
-	public void update(Photographer photographer) {
+	public void update(Photographer photographer) throws DataNotFoundException {
 		
 		for(Contact c: this.database.getContacts()) {
 			if((c instanceof Photographer) && (c.getName().equals(photographer.getName()))) {
@@ -49,26 +50,27 @@ public class PhotographerDao {
 				return;
 			}
 		}
-		//lancar excecao de dado nao encontrado	 
+		throw new DataNotFoundException("Photographer not found");	 
 	}
 	
-	public Photographer findByName(String name) {
+	public Photographer findByName(String name) throws DataNotFoundException {
 		
 		for(Contact c: database.getContacts()) {
 			if((c instanceof Photographer) && (c.getName().equals(name))) {
 				return (Photographer)c;
 			}
 		}
-		return null;
+		throw new DataNotFoundException("Photographer not found");	
 	}
-	public Photographer findByNameAgency(String name) {
+	
+	public Photographer findByNameAgency(String name) throws DataNotFoundException {
 
 		for(Photographer c: database.getAgency().getPhotographers()) {
 			if((c.getName().equals(name))) {
 				return c;
 			}
 		}
-		return null;
+		throw new DataNotFoundException("Photographer not found");	
 	}
 		
 }

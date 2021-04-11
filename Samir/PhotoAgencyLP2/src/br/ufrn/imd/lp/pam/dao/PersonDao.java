@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import br.ufrn.imd.lp.pam.domain.Contact;
 import br.ufrn.imd.lp.pam.domain.Person;
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 
 public class PersonDao {
 
@@ -32,7 +33,7 @@ public class PersonDao {
 		return people;
 	}
 
-	public void update(Person person) {
+	public void update(Person person) throws DataNotFoundException {
 
 		for (Contact c : this.database.getContacts()) {
 			if ((c instanceof Person) && (c.getName().equals(person.getName()))) {
@@ -40,17 +41,17 @@ public class PersonDao {
 				return;
 			}
 		}
-		// lancar excecao de dado nao encontrado
+		throw new DataNotFoundException("Person not found");
 	}
 
-	public Person findByName(String name) {
+	public Person findByName(String name) throws DataNotFoundException {
 
 		for (Contact c : database.getContacts()) {
 			if ((c instanceof Person) && (c.getName().equals(name))) {
 				return (Person) c;
 			}
 		}
-		return null;
+		throw new DataNotFoundException("Person not found");	
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import br.ufrn.imd.lp.pam.domain.Order;
 import br.ufrn.imd.lp.pam.domain.Photographer;
 import br.ufrn.imd.lp.pam.domain.Tour;
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 
 public class TourDao {
 
@@ -15,7 +16,7 @@ public class TourDao {
 		this.database = Database.getInstance();
 	}
 
-	public Tour findTour(String tourName, String photographerName) {
+	public Tour findTour(String tourName, String photographerName) throws DataNotFoundException{
 
 		for (Photographer p : this.database.getAgency().getPhotographers()) {
 			if (p.getName().equals(photographerName)) {
@@ -26,8 +27,8 @@ public class TourDao {
 				}
 			}
 		}
-		// lançar exceção dado não encontrado
-		return null;
+
+		throw new DataNotFoundException("Tour not found");
 	}
 
 	public void addTour(Tour tour) {
@@ -40,7 +41,7 @@ public class TourDao {
 		}
 	}
 
-	public void updateTour(Tour tour) {
+	public void updateTour(Tour tour) throws DataNotFoundException {
 
 		Tour t = findTour(tour.getName(), tour.getPhotographer().getName());
 		if (t != null) {
@@ -59,7 +60,7 @@ public class TourDao {
 		}
 	}
 
-	public ArrayList<Tour> listTourByPhotographer(String photographerName) {
+	public ArrayList<Tour> listTourByPhotographer(String photographerName) throws DataNotFoundException {
 
 		for (Photographer p : this.database.getAgency().getPhotographers()) {
 			if (p.getName().equals(photographerName)) {
@@ -67,7 +68,7 @@ public class TourDao {
 			}
 		}
 
-		return null;
+		throw new DataNotFoundException("Photographer not found");	
 	}
 
 	public double salesAmount() {

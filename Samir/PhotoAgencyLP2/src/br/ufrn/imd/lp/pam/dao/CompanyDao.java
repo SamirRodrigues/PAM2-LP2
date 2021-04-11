@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import br.ufrn.imd.lp.pam.domain.Company;
 import br.ufrn.imd.lp.pam.domain.Contact;
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 
 public class CompanyDao {
 
@@ -32,7 +33,7 @@ public class CompanyDao {
 		return companies;
 	}
 
-	public void update(Company company) {
+	public void update(Company company) throws DataNotFoundException {
 
 		for (Contact c : this.database.getContacts()) {
 			if ((c instanceof Company) && (c.getName().equals(company.getName()))) {
@@ -40,17 +41,17 @@ public class CompanyDao {
 				return;
 			}
 		}
-		// lancar excecao de dado nao encontrado
+		throw new DataNotFoundException("Company not found");
 	}
 
-	public Company findByName(String name) {
+	public Company findByName(String name) throws DataNotFoundException {
 
 		for (Contact c : database.getContacts()) {
 			if ((c instanceof Company) && (c.getName().equals(name))) {
 				return (Company) c;
 			}
 		}
-		return null;
+		throw new DataNotFoundException("Company not found");
 	}
 
 }

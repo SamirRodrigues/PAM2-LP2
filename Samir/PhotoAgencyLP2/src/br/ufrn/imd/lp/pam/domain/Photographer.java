@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class Photographer extends Contact {
 
+
+
+	private String cpf;
 	private ArrayList<Tour> tours;
 	private ArrayList<Order> orders;
 
@@ -28,4 +31,8 @@ public class Photographer extends Contact {
 	public void setOrders(ArrayList<Order> orders) {
 		this.orders = orders;
 	}
+
+	public String getCpf() { return cpf; }
+
+	public void setCpf(String cpf) { this.cpf = cpf; }
 }
