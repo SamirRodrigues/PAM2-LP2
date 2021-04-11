@@ -1,4 +1,4 @@
-Photo Agency Manager
+# Photo Agency Manager
 
 Há duas formas de executar o programa:
 
