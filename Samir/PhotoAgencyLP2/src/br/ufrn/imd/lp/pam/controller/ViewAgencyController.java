@@ -5,6 +5,7 @@ import br.ufrn.imd.lp.pam.dao.PhotographerDao;
 import br.ufrn.imd.lp.pam.dao.TourDao;
 import br.ufrn.imd.lp.pam.domain.*;
 
+import br.ufrn.imd.lp.pam.exception.DataNotFoundException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,22 +31,17 @@ public class ViewAgencyController implements Initializable {
     @FXML    private ListView<String> listTuorView = new ListView<>();
     @FXML    private ListView<Order> listOrderView = new ListView<>();
 
-    @FXML    private TableView<Order> tableOrderView = new TableView<>();
-
     // Selected Items
     ArrayList<Photographer> list = new ArrayList<>();
     Photographer selectedPhotographer;
     Tour selectedTour;
     Order selectedOrder;
 
-
     // DETAIL ORDER
     @FXML    private Label nameDetailOrder = new Label();
     @FXML    private Label packDetailOrder = new Label();
     @FXML    private Label statusDetailOrder = new Label();
     @FXML    private Label tourDetailOrder = new Label();
-
-
 
 
     // ## Start Register Menu Options ##
@@ -101,27 +97,34 @@ public class ViewAgencyController implements Initializable {
         }
 
         listPhotoView.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<String>()
-                {
-                    @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-                    {
+                .addListener((observable, oldValue, newValue) -> {
+                    try {
                         selectedPhotographer =  listPhotographerDao.findByNameAgency(newValue);
-
-                        listTuorView.getItems().removeAll(listTuorView.getItems()); //Remove todos os itens dele mesmo, ou seja, limpa a lista
-
-                        for (var a: selectedPhotographer.getTours())
-                        {
-                            listTuorView.getItems().add(a.getName());
-                        }
+                    } catch (DataNotFoundException e) {
+                        e.printStackTrace();
                     }
+
+                    if(!listTuorView.getItems().isEmpty())
+                    {
+                        listTuorView.getItems().removeAll(listTuorView.getItems()); //Remove todos os itens dele mesmo, ou seja, limpa a lista
+                    }
+
+                    for (var a: selectedPhotographer.getTours())
+                        listTuorView.getItems().add(a.getName());
                 });
 
         listTuorView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    selectedTour = listTourDao.findTour(newValue, selectedPhotographer.getName());
+                    try {
+                        selectedTour = listTourDao.findTour(newValue, selectedPhotographer.getName());
+                    } catch (DataNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-                    listOrderView.getItems().removeAll(listOrderView.getItems());
+                    if(!listOrderView.getItems().isEmpty())
+                    {
+                        listOrderView.getItems().removeAll(listOrderView.getItems());
+                    }
 
                     ObservableList<Order> orderItems = FXCollections.observableArrayList();
 
@@ -134,18 +137,17 @@ public class ViewAgencyController implements Initializable {
         listOrderView.getSelectionModel().selectedItemProperty() //TODO: Criar uma tabela no lugar da lista e armazenar Nome e ID
                 .addListener(new ChangeListener<Order>()
                 {
-                    ObservableList<Order> items = FXCollections.observableArrayList();
                     @Override
                     public void changed(ObservableValue<? extends Order> observable, Order oldValue, Order newValue)
                     {
-                        selectedOrder = listOrderDao.findOrder(selectedTour.getName(),selectedPhotographer.getName(),newValue.getOrderId());
+                        try {
+                            selectedOrder = listOrderDao.findOrder(selectedTour.getName(),selectedPhotographer.getName(),newValue.getOrderId());
+                        } catch (DataNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         initData(selectedOrder);
-                        tableOrderView.setItems(items);
-                        tableOrderView.refresh();
-
                     }
                 });
-        tableOrderView.getColumns().add(clientName);
     }
 
     //Esse metodo recebe um pedido para inicializar a janela de detalhamento com os dados desse pedido
@@ -157,8 +159,7 @@ public class ViewAgencyController implements Initializable {
     }
 
     //Esse metodo recebe um pedido para inicializar a janela de detalhamento com os dados desse pedido
-    public void initData()
-    {
+    public void initData() {
         nameDetailOrder.setText("-");
         tourDetailOrder.setText("-");
         packDetailOrder.setText("-");

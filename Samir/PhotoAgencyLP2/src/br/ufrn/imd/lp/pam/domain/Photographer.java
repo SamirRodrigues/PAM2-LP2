@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Photographer extends Contact {
 
-
-
 	private String cpf;
 	private ArrayList<Tour> tours;
 	private ArrayList<Order> orders;

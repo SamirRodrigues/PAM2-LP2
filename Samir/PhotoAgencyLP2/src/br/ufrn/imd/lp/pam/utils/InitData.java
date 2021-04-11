@@ -59,8 +59,8 @@ public class InitData {
         monteGameleiras.getOrders().add(order5);
 
         samir.getTours().add(pedraDaBoca);
-        samir.getTours().add(ponteNewton);
-        cephas.getTours().add(picoCabugi);
+        samir.getTours().add(picoCabugi);
+        cephas.getTours().add(ponteNewton);
         cephas.getTours().add(monteGameleiras);
 
         agency.getPhotographers().add(samir);

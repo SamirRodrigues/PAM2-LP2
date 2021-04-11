@@ -26,6 +26,7 @@ public class ViewLoginController {
 
             Stage newWindow = new Stage();
             newWindow.setTitle("Photograper View");
+            newWindow.setResizable(false);
             newWindow.setScene(photographerViewScene);
             newWindow.show();
 
@@ -42,6 +43,7 @@ public class ViewLoginController {
 
             Stage newWindow = new Stage();
             newWindow.setTitle("Agency View");
+            newWindow.setResizable(false);
             newWindow.setScene(agencyViewScene);
             newWindow.show();
         }
