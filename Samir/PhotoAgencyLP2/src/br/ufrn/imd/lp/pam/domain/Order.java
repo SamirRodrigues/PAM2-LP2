@@ -7,6 +7,7 @@ public class Order {
 
 	private String orderId;
 	private Person client;
+	private String clientName;
 	private Photographer photographer;
 	private PhotoPack photoPack;
 	private OrderStatus orderStatus;
@@ -16,8 +17,10 @@ public class Order {
 
 	public Order(Person client, Photographer photographer, Tour tour, PhotoPack photoPack) {
 		this.client = client;
+		this.clientName = client.getName();
 		this.photographer = photographer;
 		this.tour = tour;
+		this.photoPack = photoPack;
 		this.orderStatus = OrderStatus.CUSTOMER_CHOOSING_PHOTOS;
 		this.requestDate = new Date();
 		this.orderId = createId();
@@ -46,52 +49,33 @@ public class Order {
 		this.client = client;
 	}
 
-	public Photographer getPhotographer() {
-		return photographer;
-	}
+	public String getClientName() { return clientName; }
 
-	public void setPhotographer(Photographer photographer) {
-		this.photographer = photographer;
-	}
+	public void setClientName(String clientName) { this.clientName = clientName; }
 
-	public PhotoPack getPhotoPack() {
-		return photoPack;
-	}
+	public Photographer getPhotographer() {	return photographer; }
 
-	public void setPhotoPack(PhotoPack photoPack) {
-		this.photoPack = photoPack;
-	}
+	public void setPhotographer(Photographer photographer) { this.photographer = photographer; }
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
+	public PhotoPack getPhotoPack() { return photoPack;	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+	public void setPhotoPack(PhotoPack photoPack) {	this.photoPack = photoPack;	}
 
-	public Date getRequestDate() {
-		return requestDate;
-	}
+	public OrderStatus getOrderStatus() { return orderStatus; }
 
-	public void setRequestDate(Date requestDate) {
-		this.requestDate = requestDate;
-	}
+	public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
 
-	public Date getDeliveryDate() {
-		return deliveryDate;
-	}
+	public Date getRequestDate() { return requestDate; }
 
-	public void setDeliveryDate(Date deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
+	public void setRequestDate(Date requestDate) { this.requestDate = requestDate; }
 
-	public Tour getTour() {
-		return tour;
-	}
+	public Date getDeliveryDate() { return deliveryDate; }
 
-	public void setTour(Tour tour) {
-		this.tour = tour;
-	}
+	public void setDeliveryDate(Date deliveryDate) { this.deliveryDate = deliveryDate; }
+
+	public Tour getTour() {	return tour; }
+
+	public void setTour(Tour tour) { this.tour = tour; }
+
 
 }

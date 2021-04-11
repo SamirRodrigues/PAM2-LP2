@@ -1,5 +1,7 @@
 package br.ufrn.imd.lp.pam.utils;
 
+import br.ufrn.imd.lp.pam.dao.PhotoPackDao;
+import br.ufrn.imd.lp.pam.dao.PhotographerDao;
 import br.ufrn.imd.lp.pam.domain.*;
 
 public class InitData {
@@ -7,6 +9,8 @@ public class InitData {
     public static Agency createAgency()
     {
         Agency agency = new Agency();
+        PhotographerDao photographerDao = new PhotographerDao();
+        PhotoPackDao photoPackDao = new PhotoPackDao();
 
         Person leticia = new Person("Leticia", "84999302642");
         Person denis = new Person("Denis", "84997054647");
@@ -17,15 +21,21 @@ public class InitData {
         Photographer samir = new Photographer("Samir", "84999115333");
         Photographer cephas = new Photographer("Cephas", "84988734992");
 
+
         PhotoPack pack1 = new PhotoPack("Pack 1", 7, "Unidade");
         PhotoPack pack2 = new PhotoPack("Pack 2", 40, "10 fotos digitais");
         PhotoPack pack3 = new PhotoPack("Pack 3", 50, "15 fotos digitais");
         PhotoPack pack4 = new PhotoPack("Pack 4", 150, "20 fotos digitais + Quadro 40x60 + 5 fotos impressas");
 
+
         Tour pedraDaBoca = new Tour();
+        pedraDaBoca.setName("PedraDaBoca1");
         Tour ponteNewton = new Tour();
+        ponteNewton.setName("PonteNewton1");
         Tour picoCabugi = new Tour();
+        picoCabugi.setName("PicoDoCabugi1");
         Tour monteGameleiras = new Tour();
+        monteGameleiras.setName("MonteDasGameleiras1");
 
         Order order1 = new Order(leticia, samir, pedraDaBoca, pack1);
         Order order2 = new Order(denis, samir, pedraDaBoca, pack2);
@@ -36,7 +46,9 @@ public class InitData {
 
         pedraDaBoca.getClients().add(leticia);
         pedraDaBoca.getClients().add(denis);
+
         picoCabugi.getClients().add(gabriel);
+
         monteGameleiras.getClients().add(henrique);
         monteGameleiras.getClients().add(will);
 

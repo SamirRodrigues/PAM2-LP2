@@ -8,7 +8,7 @@ import br.ufrn.imd.lp.pam.domain.Tour;
 
 public class TourDao {
 
-	private Database database;
+	private final Database database;
 	Tour tour = new Tour();
 
 	public TourDao() {

@@ -1,11 +1,15 @@
 package br.ufrn.imd.lp.pam.controller;
 
-import br.ufrn.imd.lp.pam.dao.Database;
+import br.ufrn.imd.lp.pam.dao.OrderDao;
+import br.ufrn.imd.lp.pam.dao.PhotographerDao;
+import br.ufrn.imd.lp.pam.dao.TourDao;
 import br.ufrn.imd.lp.pam.domain.*;
 
-import javafx.beans.property.adapter.JavaBeanStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -16,19 +20,34 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ViewAgencyController implements Initializable {
 
-    public ListView<String> listPhotoView;
-    public ListView<String> listTuorView;
-    public ListView<String> listOrderView;
+    @FXML    private ListView<String> listPhotoView = new ListView<>();
+    @FXML    private ListView<String> listTuorView = new ListView<>();
+    @FXML    private ListView<String> listOrderView = new ListView<>();
+
+    @FXML    private TableView<Order> tableOrderView = new TableView<>();
+
+    // Selected Items
+    ArrayList<Photographer> list = new ArrayList<>();
+    Photographer selectedPhotographer;
+    Tour selectedTour;
+    Order selectedOrder;
+
+    //Order TableView
+    private TableColumn<Order, String> clientName = new TableColumn<>("VEJA");
+
+
+
 
     // DETAIL ORDER
-    public Label nameDetailOrder;
-    public Label packDetailOrder;
-    public Label statusDetailOrder;
-    public Label tourDetailOrder;
+    @FXML    private Label nameDetailOrder = new Label();
+    @FXML    private Label packDetailOrder = new Label();
+    @FXML    private Label statusDetailOrder = new Label();
+    @FXML    private Label tourDetailOrder = new Label();
 
 
     // ## Start Register Menu Options ##
@@ -57,16 +76,69 @@ public class ViewAgencyController implements Initializable {
     // ## End Register Menu Options ##
 
     // ## Start Agency Body View ##
-
     private void  initPhotoList() {
         initData();
 
-        for (var p: Database.getInstance().getAgency().getPhotographers())
+        PhotographerDao listPhotographerDao = new PhotographerDao();
+        list = listPhotographerDao.listAgencyPhotographers();
+        TourDao listTourDao = new TourDao();
+
+        for (var p: list)
         {
-            listPhotoView.getItems().addAll(p.getName());
+            listPhotoView.getItems().add(p.getName());
         }
-        listPhotoView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        listPhotoView.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<String>()
+                {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                    {
+                        selectedPhotographer =  listPhotographerDao.findByNameAgency(newValue);
+
+                        listTuorView.getItems().removeAll(listTuorView.getItems()); //Remove todos os itens dele mesmo, ou seja, limpa a lista
+
+                        for (var a: selectedPhotographer.getTours())
+                        {
+                            listTuorView.getItems().add(a.getName());
+                        }
+                    }
+                });
+
+        listTuorView.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<String>()
+                {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                    {
+                        selectedTour = listTourDao.findTour(newValue, selectedPhotographer.getName());
+
+                        listOrderView.getItems().removeAll(listOrderView.getItems());
+
+                        ObservableList<Order> orderItems = FXCollections.observableArrayList();
+
+                        for (var a: selectedTour.getOrders())
+                        {
+                            listOrderView.getItems().add(a.getClientName());
+                        }
+                    }
+                });
+
+        listOrderView.getSelectionModel().selectedItemProperty() //TODO: Criar uma tabela no lugar da lista e armazenar Nome e ID
+                .addListener(new ChangeListener<String>()
+                {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                    {
+
+                    }
+                });
     }
+
+         clientName.setCellValueFactory(new PropertyValueFactory<Order, String>("clientName"));
+         listOrderView.setItems(items);
+         listOrderView.getColumns().add(clientName);
+
 
     //Esse metodo recebe um pedido para inicializar a janela de detalhamento com os dados desse pedido
     public void initData(Order order) {
@@ -74,45 +146,15 @@ public class ViewAgencyController implements Initializable {
         nameDetailOrder.setText(order.getClient().getName());
         packDetailOrder.setText(order.getPhotoPack().getDescription());
         statusDetailOrder.setText(order.getOrderStatus().getInfo());
-
     }
 
     //Esse metodo recebe um pedido para inicializar a janela de detalhamento com os dados desse pedido
-    public void initData() {
-
-        listPhotoView = new ListView<>();
-        listTuorView = new ListView<>();
-        listOrderView = new ListView<>();
-
-        nameDetailOrder = new Label();
-        tourDetailOrder = new Label();
-        packDetailOrder = new Label();
-        statusDetailOrder = new Label();
-
-
+    public void initData()
+    {
         nameDetailOrder.setText("-");
         tourDetailOrder.setText("-");
         packDetailOrder.setText("-");
         statusDetailOrder.setText("-");
-
-    }
-
-    // Executa o detalhamento do pedido selecionado
-    public void ButtonDetailsOrders()
-    {
-
-
-    }
-
-    // Executa o detalhamento do pedido selecionado
-    public void ButtonTuorFilter()
-    {
-    }
-
-    // Executa o detalhamento do pedido selecionado
-    public void ButtonOrderFilter()
-    {
-
     }
 
     // ## End Agency Body View ##

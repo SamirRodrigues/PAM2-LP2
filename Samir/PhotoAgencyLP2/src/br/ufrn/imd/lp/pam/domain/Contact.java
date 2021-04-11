@@ -6,7 +6,8 @@ public abstract class Contact {
 	private String email;
 	private String phone;
 	
-	public Contact() {}
+	public Contact() {
+	}
 
 	public Contact(String name, String phone) {
 		this.name = name;

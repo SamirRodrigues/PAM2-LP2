@@ -30,6 +30,16 @@ public class PhotographerDao {
 		
 		return photographers;
 	}
+
+	public ArrayList<Photographer> listAgencyPhotographers(){
+		ArrayList<Photographer> photographers = new ArrayList<Photographer>();
+		for(Photographer c: this.database.getAgency().getPhotographers())
+		{
+			photographers.add(c);
+		}
+
+		return photographers;
+	}
 	
 	public void update(Photographer photographer) {
 		
@@ -47,6 +57,15 @@ public class PhotographerDao {
 		for(Contact c: database.getContacts()) {
 			if((c instanceof Photographer) && (c.getName().equals(name))) {
 				return (Photographer)c;
+			}
+		}
+		return null;
+	}
+	public Photographer findByNameAgency(String name) {
+
+		for(Photographer c: database.getAgency().getPhotographers()) {
+			if((c.getName().equals(name))) {
+				return c;
 			}
 		}
 		return null;
